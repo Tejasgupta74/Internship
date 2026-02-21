@@ -5,11 +5,11 @@ services:
     region: oregon
     plan: starter
     
-    # Build command - installs dependencies and builds frontend
-    buildCommand: cd backend && npm install && npm run build
+    # Build command - uses build.sh script
+    buildCommand: bash build.sh
     
-    # Start command - starts the Node.js server
-    startCommand: cd backend && npm start
+    # Start command - uses start.sh script
+    startCommand: bash start.sh
     
     # Environment variables
     envVars:
