@@ -5,14 +5,11 @@ services:
     region: oregon
     plan: starter
     
-    # Root of the service - where package.json is located
-    rootDir: backend
-    
-    # Build command - builds frontend and prepares for serving
-    buildCommand: npm run build
+    # Build command - installs dependencies and builds frontend
+    buildCommand: cd backend && npm install && npm run build
     
     # Start command - starts the Node.js server
-    startCommand: npm start
+    startCommand: cd backend && npm start
     
     # Environment variables
     envVars:
@@ -45,9 +42,3 @@ services:
     
     # Health check
     healthCheckPath: /health
-    
-    # Disk space if needed for uploads/files
-    disk:
-      name: file-storage
-      mountPath: /var/data
-      sizeGB: 10
