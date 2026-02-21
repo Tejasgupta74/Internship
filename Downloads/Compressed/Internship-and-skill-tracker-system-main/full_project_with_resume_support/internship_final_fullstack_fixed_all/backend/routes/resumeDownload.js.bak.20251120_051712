@@ -1,0 +1,65 @@
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const router = express.Router();
+
+const { authenticateJWT, authorizeRoles } = require('../../../middleware/auth');
+const Application = require('../models/Application');
+const Job = require('../models/job');
+
+/**
+ * Helper: check company owns the job
+ * Adjust Job model field name if different (e.g., employerId, company)
+ */
+async function companyOwnsJob(companyId, jobId) {
+  const job = await Job.findById(jobId).select('companyId').lean();
+  if (!job) return false;
+  return job.companyId.toString() === companyId.toString();
+}
+
+/**
+ * GET /applications/:applicationId/resume
+ * - Protected: only admin, company, recruiter
+ * - Companies/recruiters can only download resumes for their own jobs
+ */
+router.get(
+  '/:applicationId/resume',
+  authenticateJWT,
+  authorizeRoles('admin', 'company', 'recruiter'),
+  async (req, res) => {
+    try {
+      const { applicationId } = req.params;
+      const application = await Application.findById(applicationId).select('resume resumeOriginalName jobId').lean();
+      if (!application || !application.resume) return res.status(404).json({ message: 'Resume not found' });
+
+      const userRole = req.user.role;
+      const userId = req.user.id;
+
+      if (userRole === 'company' || userRole === 'recruiter') {
+        const owns = await companyOwnsJob(userId, application.jobId);
+        if (!owns) return res.status(403).json({ message: 'Forbidden — not authorized for this job' });
+      }
+
+      const uploadsRoot = path.resolve(__dirname, '..', 'uploads', 'resumes');
+      const filePath = path.resolve(uploadsRoot, path.basename(application.resume));
+
+      if (!filePath.startsWith(uploadsRoot)) return res.status(400).json({ message: 'Invalid file path' });
+      if (!fs.existsSync(filePath)) return res.status(404).json({ message: 'File missing on server' });
+
+      const stat = fs.statSync(filePath);
+      res.setHeader('Content-Length', stat.size);
+      res.setHeader('Content-Type', 'application/pdf');
+
+      const originalName = application.resumeOriginalName || path.basename(application.resume);
+      res.setHeader('Content-Disposition', `attachment; filename="${originalName.replace(/"/g, '')}"`);
+
+      const stream = fs.createReadStream(filePath);
+      stream.pipe(res);
+    } catch (err) {
+      console.error('Resume download error', err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
+);
+
+module.exports = router;

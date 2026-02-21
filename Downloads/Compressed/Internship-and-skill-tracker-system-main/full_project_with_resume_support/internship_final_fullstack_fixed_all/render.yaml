@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: internship-tracker
+    runtime: node
+    region: oregon
+    plan: starter
+    
+    # Root of the service - where package.json is located
+    rootDir: backend
+    
+    # Build command - builds frontend and prepares for serving
+    buildCommand: npm run build
+    
+    # Start command - starts the Node.js server
+    startCommand: npm start
+    
+    # Environment variables
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: FRONTEND_URL
+        sync: false
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SIGNUP_FROM
+        sync: false
+      - key: LOGIN_FROM
+        sync: false
+      - key: TEST_TO
+        sync: false
+    
+    # Health check
+    healthCheckPath: /health
+    
+    # Disk space if needed for uploads/files
+    disk:
+      name: file-storage
+      mountPath: /var/data
+      sizeGB: 10
