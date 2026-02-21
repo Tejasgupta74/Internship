@@ -5,10 +5,13 @@ WORKDIR /app
 # Copy entire project
 COPY . .
 
-# Install and build
-RUN cd backend && npm install && npm run build
+# Build frontend first
+WORKDIR /app/backend
+RUN npm install
 
-EXPOSE 5000
+# Build frontend
+RUN npm run build
 
 # Start backend server
-CMD ["node", "backend/server.js"]
+EXPOSE 5000
+CMD ["npm", "start"]
