@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* frontend/src/styles.css
+   "Aurora" theme - modern glass + gradients, global styles only.
+   Replace your existing styles.css with this single file.
+*/
+
+/* Import Google fonts */
+/* frontend/src/styles.css
+   Aurora theme + marquee styles.
+   IMPORTANT: font weights and families are included above.
+*/
+
+:root{
+  --bg-1: linear-gradient(135deg,#0f172a 0%, #071029 50%, #08132a 100%);
+  --accent-1: #6EE7B7;
+  --accent-2: #60A5FA;
+  --accent-3: #A78BFA;
+  --muted: rgba(255,255,255,0.72);
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.04);
+  --card: rgba(255,255,255,0.03);
+  --danger: #FB7185;
+  --success: #34D399;
+  --radius: 14px;
+  --container-w: 1100px;
+  --line: 1.45;
+}
+
+/* Reset / base */
+* { box-sizing: border-box; }
+html,body,#root { height:100%; }
+body{
+  margin:0;
+  min-height:100%;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg-1);
+  color: #E6EEF8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: var(--line);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Main app container (aligns with your existing layout) */
+.app-shell {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 28px;
+}
+
+/* Header */
+.site-header {
+  backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 14px 0;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* Brand */
+.brand { display:flex; gap:12px; align-items:center; }
+.brand-bubble {
+  width:48px; height:48px;
+  border-radius:12px;
+  background: linear-gradient(135deg,var(--accent-3), var(--accent-2));
+  display:flex; align-items:center; justify-content:center;
+  color:white; font-weight:700; font-family:Poppins, Inter, sans-serif;
+  box-shadow: 0 6px 20px rgba(10,12,20,0.6);
+}
+
+/* Nav */
+.navbar { display:flex; gap:8px; align-items:center; }
+.nav-link {
+  color: var(--muted);
+  padding:8px 12px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:500;
+  transition: all .16s ease;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.nav-link:hover { color: #FFF; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(7,10,20,0.45); }
+
+/* Controls */
+.controls { display:flex; align-items:center; gap:10px; }
+
+/* Buttons */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius: 10px;
+  font-weight:600;
+  cursor:pointer;
+  border: none;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  user-select:none;
+}
+.btn:active{ transform: translateY(1px) scale(.997); }
+.btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+/* Primary gradient */
+.btn-primary{
+  background: linear-gradient(90deg,var(--accent-2), var(--accent-3));
+  color:#021025;
+  box-shadow: 0 12px 30px rgba(99,102,241,0.12), inset 0 -2px 6px rgba(0,0,0,0.08);
+}
+.btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 20px 40px rgba(99,102,241,0.16); }
+
+/* Ghost */
+.btn-ghost{
+  background: rgba(255,255,255,0.03);
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.btn-ghost:hover{ color:#FFF; transform: translateY(-2px); }
+
+/* Success / danger */
+.btn-success{ background: linear-gradient(90deg,#34D399,#6EE7B7); color:#022; }
+.btn-danger{ background: linear-gradient(90deg,#FB7185,#F97316); color:#102018; }
+
+/* Card / glass */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius: var(--radius);
+  padding:18px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Headings */
+.h1 { font-family: Poppins, Inter, sans-serif; font-weight:700; color:#fff; font-size:1.5rem; margin:0 0 8px 0; }
+.h2 { font-weight:600; color: #E6EEF8; margin:0 0 12px 0; }
+
+/* Inputs */
+.input {
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.04);
+  background: rgba(6,8,12,0.35);
+  color: #EAF6FF;
+  outline:none;
+  transition: box-shadow .12s ease, transform .08s ease;
+}
+.input:focus {
+  box-shadow: 0 8px 26px rgba(59,130,246,0.09), 0 1px 0 rgba(255,255,255,0.02) inset;
+  transform: translateY(-1px);
+}
+.textarea { min-height:110px; resize:vertical; }
+
+/* Badges */
+.badge {
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  color:#042;
+}
+.badge-accepted { background: var(--success); color:#022; }
+.badge-rejected { background: var(--danger); color:#2a0410; }
+.badge-pending { background: #F59E0B; color:#2a1400; }
+
+/* small helpers */
+.row { display:flex; gap:12px; align-items:center; }
+.col { display:flex; flex-direction:column; gap:8px; }
+.muted { color: rgba(255,255,255,0.6); font-size:0.95rem; }
+
+/* Job list style */
+.job-card {
+  padding:18px;
+  border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 10px 30px rgba(3,7,20,0.6);
+}
+
+/* tiny motion */
+.pulse {
+  animation: pulse-accent 2.6s infinite;
+}
+@keyframes pulse-accent {
+  0% { box-shadow: 0 0 0 0 rgba(99,102,241,0.06); }
+  70% { box-shadow: 0 0 0 18px rgba(99,102,241,0); }
+  100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+}
+
+/* utility spacing */
+.mt-2 { margin-top:8px; }
+.mb-4 { margin-bottom:16px; }
+
+/* ---------- Logo marquee (scrolling logos) ---------- */
+
+.marquee-wrapper {
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 12px;
+  padding: 12px 0;
+}
+
+/* container that moves left; duplicated logos allow seamless -50% translation */
+.marquee {
+  display:flex;
+  gap: 36px;
+  align-items:center;
+  will-change: transform;
+  animation: marquee-scroll linear infinite;
+  /* animation duration controlled by CSS variable set inline by component -- fallback 18s */
+  animation-duration: var(--marquee-duration, 18s);
+}
+
+/* each item */
+.marquee-item {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 8px 10px;
+  opacity: 0.95;
+  filter: drop-shadow(0 8px 20px rgba(2,6,20,0.45));
+}
+
+/* logo image */
+.marquee-logo {
+  display:block;
+  max-height:44px;
+  max-width:180px;
+  object-fit:contain;
+  opacity: 0.95;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+/* hover scaled pop */
+.marquee-item:hover .marquee-logo {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+/* pause on hover */
+.marquee-wrapper:hover .marquee {
+  animation-play-state: paused;
+}
+
+/* prefer-reduced-motion */
+@media (prefers-reduced-motion: reduce){
+  .marquee { animation: none; transform: none; }
+  .marquee-logo { transition: none; }
+}
+
+/* keyframes move from 0 -> -50% (we duplicated items in markup) */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* responsive tweaks */
+@media (max-width:900px) {
+  .marquee { gap: 22px; }
+  .marquee-logo { max-height:36px; max-width:120px; }
+}
+/* Make logos visible on dark bg — useful if SVGs are dark */
+/* Make logos visible on dark background (quick universal fix) */
+.marquee-logo {
+  display:block;
+  max-height:44px;
+  max-width:180px;
+  object-fit:contain;
+  transition: transform .18s ease, opacity .18s ease;
+  /* MAKE VISIBLE: invert dark logos to light + boost brightness/contrast */
+  filter: invert(1) brightness(2) contrast(1.15);
+}
+/* only invert specific logos */
+.marquee-logo[src$="cocacola.svg"],
+.marquee-logo[src$="bookmyshow.svg"],
+.marquee-logo[src$="netflix.svg"] {
+  filter: invert(1) brightness(2) contrast(1.15);
+}
+
+/* Mask-based logo tinting: use SVGs as masks and fill with a single tint color.
+   Apply via inline styles: set `WebkitMaskImage` / `maskImage` to the SVG URL.
+   The color is controlled by the CSS variable `--logo-tint`. */
+.logo-mask {
+  display: inline-block;
+  width: 48px;
+  height: 28px;
+  background-color: var(--logo-tint, #60A5FA); /* default sky-400 */
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  opacity: 0.85;
+  transition: opacity .16s ease, transform .12s ease;
+}
+.logo-mask:hover { opacity: 1; transform: translateY(-3px); }
+

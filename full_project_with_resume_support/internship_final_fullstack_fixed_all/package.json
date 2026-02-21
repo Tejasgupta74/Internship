@@ -1,0 +1,17 @@
+{
+  "name": "internship-tracker-root",
+  "version": "1.0.0",
+  "description": "Internship and Skill Tracker - Full Stack Application",
+  "main": "backend/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
+    "start": "npm start --prefix backend",
+    "dev": "npm install --prefix backend && npm install --prefix frontend && npm run dev --prefix backend"
+  },
+  "keywords": ["internship", "tracker", "full-stack"],
+  "author": "Tejas Gupta",
+  "license": "MIT"
+}
