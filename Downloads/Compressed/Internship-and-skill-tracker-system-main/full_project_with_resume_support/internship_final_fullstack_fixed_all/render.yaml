@@ -5,11 +5,9 @@ services:
     region: oregon
     plan: starter
     
-    # Build command - uses build.sh script
-    buildCommand: bash build.sh
-    
-    # Start command - uses start.sh script
-    startCommand: bash start.sh
+    # Build and start commands will use root package.json
+    buildCommand: npm run build
+    startCommand: npm start
     
     # Environment variables
     envVars:
